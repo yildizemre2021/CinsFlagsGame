@@ -18,7 +18,7 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
         public static string role;
         public static string serverIpep;
 
-        public static void Start(Form form, Panel panel)
+        public static void Start(Form form, Panel panel) // This method will run once when the Form_Load.
         {
             Game.State = 1; // First stage of the game is picking own lands.
             Player player1 = new Player("   Pirate", Color.Purple);

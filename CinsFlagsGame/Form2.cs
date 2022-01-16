@@ -8,9 +8,6 @@ namespace CinsFlagsGame
 {
     public partial class Form2 : Form
     {
-
-
-
         public Form2()
         {
             InitializeComponent();
@@ -32,7 +29,6 @@ namespace CinsFlagsGame
             TcpGame.Initialize(); // setting up the tcp/ip server and client together that is asynchronous and threaded.
         }
 
-
         internal static void Land_Clicked_Event(object sender, EventArgs e) // All the Land(button) clicked events start in this method.
         {
             Land land = (Land)sender;
@@ -48,7 +44,6 @@ namespace CinsFlagsGame
                     break;
             }
         }
-
       
         private void Form2_FormClosed(object sender, FormClosedEventArgs e)
         {
@@ -64,6 +59,12 @@ namespace CinsFlagsGame
                 textBox2.Clear();
                 TcpGame.Send(message, message.Length);
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            InformationForm info = new InformationForm();
+            info.ShowDialog();
         }
     }
 }

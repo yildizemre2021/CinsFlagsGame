@@ -6,9 +6,10 @@ namespace CinsFlagsGame.MyClasses.GameElements
     {
         private string name;
         private Color flagColor;
-        private int maxOwnLand = 5;
-        private int shootedLand = 0;
-        private bool turn;
+        private int maxOwnLand = 5;  // Players have 5 Land area when the war game starts.
+        private int shootedLand = 0; // this integer is for checking the Final state of the game. 
+        private bool turn;  // Players shoot the correspondence area turn by turn.
+
         public Player(string name, Color flagColor)
         {
             this.name = name;

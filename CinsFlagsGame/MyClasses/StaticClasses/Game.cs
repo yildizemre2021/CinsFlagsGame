@@ -14,6 +14,8 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
         public static Player Opponent;
         public static List<List<Land>> HostArena = new List<List<Land>>(); //  PlayGround of Host Player. 2D List data structure.
         public static List<List<Land>> OpponentArena = new List<List<Land>>(); // PlayGround of Opponent. Lands inherited from  WinForm Button.
+
+        // GUI components.
         public static ListBox ChatWindow;
         public static PictureBox HostPicture;
         public static PictureBox OpponentPicture;
@@ -29,7 +31,6 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
                 {
                     item.Enabled = b;
                 }
-
         }
 
         public static void setLandAccess(bool b, Land land)
@@ -67,18 +68,16 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
                 Game.State = 2;
                 Game.setLandAccess(false, Game.HostArena);
                 Game.setLandAccess(true, Game.OpponentArena);
-                if(Configuration.role == "Server")
+                if (Configuration.role == "Server")
                 {
                     Game.DownIndicator.Text = Configuration.HOST_TURN;
                 }
                 else
                 {
                     Game.DownIndicator.Text = "";
-                    Game.UpIndicator.Text = Configuration.OPPONENT_TURN;    
+                    Game.UpIndicator.Text = Configuration.OPPONENT_TURN;
                 }
-
             }
-
         }
 
         private static bool LandNeighboorControl(Land land) // When selecting own five lands, the rule is that all selected lands are neighboor with one of them.
@@ -108,7 +107,7 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
                     land.Owner = Host;
                     land.BackColor = land.Owner.FlagColor;
                 }
-                else
+                else // not shooted the right one.
                 {
                     Game.playFailedSound();
                     land.TextAlign = ContentAlignment.MiddleCenter;
@@ -123,15 +122,13 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
 
                 TcpGame.Send(data, 2);
 
-                if(Host.ShootedLand == 5)
+                if (Host.ShootedLand == 5)
                 {
                     MessageBox.Show("You Win !", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     TcpGame.client.Close();
                     System.Environment.Exit(0);
                 }
-
             }
-
         }
 
         public static void ReceiveMessage(byte[] data, int recv) // Critical method for receiving messages from other client with tcp/ip protocol.
@@ -214,63 +211,5 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
             failedSound.Play();
         }
 
-        public static void ReceiveMessages(byte[] data)
-        {
-            if (Game.State == 1)
-            {
-                Land land = Game.OpponentArena[data[0]][data[1]];
-                land.Owner = Game.Opponent;
-                Game.Opponent.MaxOwnLand -= 1;
-            }
-
-            if (Game.State == 0)
-            {
-                if (Configuration.role == "Server")
-                {
-                    string playerData = Game.Host.Name + "," + Game.Host.FlagColor.Name + ",";
-                    byte[] playerDataBytes = Encoding.UTF8.GetBytes(playerData);
-                    TcpGame.Send(playerDataBytes, playerDataBytes.Length);
-                }
-                string opponentData = Encoding.UTF8.GetString(data);
-                string[] oppoData = opponentData.Split(',');
-                Player opponent = new Player(oppoData[0].Trim(), Color.FromName(oppoData[1].Trim()));
-                Game.Opponent = opponent;
-                Game.State = 1;
-            }
-
-            if (Game.State == 2)
-            {
-                Game.Host.Turn = true;
-
-                Land land = Game.HostArena[data[0]][data[1]];
-                if (land.Owner == Game.Host)
-                {
-                    land.Owner = Game.Opponent;
-                    land.BackColor = land.Owner.FlagColor;
-                    Game.Opponent.ShootedLand++;
-                }
-                else
-                {
-                    land.Enabled = false;
-                    land.Font = new Font("Microsoft Sans Serif", 30);
-                    land.ForeColor = Game.Opponent.FlagColor;
-                    land.TextAlign = ContentAlignment.MiddleCenter;
-                    land.Text = "X";
-                }
-            }
-            if (Game.Host.MaxOwnLand == 0 && Game.Opponent.MaxOwnLand == 0 && Game.State == 1)
-            {
-                Game.State = 2;
-                Game.setLandAccess(false, Game.HostArena);
-                Game.setLandAccess(true, Game.OpponentArena);
-            }
-
-            if (Game.Opponent.ShootedLand == 5)
-            {
-                MessageBox.Show("You Lose Baby !", "Game Over", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                TcpGame.client.Close();
-                System.Environment.Exit(0);
-            }
-        }
     }
 }

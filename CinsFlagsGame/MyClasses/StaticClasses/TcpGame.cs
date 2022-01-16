@@ -6,7 +6,7 @@ using System.Windows.Forms;
 
 namespace CinsFlagsGame.MyClasses.StaticClasses
 {
-    public static class TcpGame  // Asynhronous Threaded Tcp connection codes from our lecture book.
+    public static class TcpGame  //  Mostly, Asynhronous Threaded Tcp connection codes from our lecture book.
     {
         private static byte[] data = new byte[1024];
         public static Socket client;

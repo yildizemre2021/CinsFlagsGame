@@ -38,6 +38,7 @@
             this.UpIndicator = new System.Windows.Forms.Label();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.button1 = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
@@ -146,11 +147,25 @@
             this.pictureBox1.TabIndex = 7;
             this.pictureBox1.TabStop = false;
             // 
+            // button1
+            // 
+            this.button1.BackColor = System.Drawing.Color.Green;
+            this.button1.Font = new System.Drawing.Font("Papyrus", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.button1.ForeColor = System.Drawing.SystemColors.ControlText;
+            this.button1.Location = new System.Drawing.Point(23, 735);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(50, 44);
+            this.button1.TabIndex = 13;
+            this.button1.Text = "?";
+            this.button1.UseVisualStyleBackColor = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
+            // 
             // Form2
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 800);
+            this.Controls.Add(this.button1);
             this.Controls.Add(this.UpIndicator);
             this.Controls.Add(this.DownIndicator);
             this.Controls.Add(this.UpNameLabel);
@@ -186,5 +201,6 @@
         private System.Windows.Forms.Label UpNameLabel;
         private System.Windows.Forms.Label DownIndicator;
         private System.Windows.Forms.Label UpIndicator;
+        private System.Windows.Forms.Button button1;
     }
 }

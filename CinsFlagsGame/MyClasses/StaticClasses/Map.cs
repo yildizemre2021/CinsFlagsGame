@@ -10,7 +10,6 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
         // with SetMap() the map is parameterized. We can simple change map size with parameters.
         public static void SetMap(List<List<Land>> map, int sizeX, int sizeY, int offset, Panel panel, int reflect = 0)
         {
-
             for (int i = 0; i < sizeY; i++)
             {
                 map.Add(new List<Land>());
@@ -19,8 +18,8 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
                 {
                     map[i].Add(new Land());
                     map[i][k].TabStop = false; // cancel unnecessary focusing on button(Land).
-                    map[i][k].CoordX = (byte)k;
-                    map[i][k].CoordY = (byte)i;
+                    map[i][k].CoordX = (byte)k; // set 2D list index. We'll use this two bytes in tcp networking.
+                    map[i][k].CoordY = (byte)i; // 
 
                     panel.Controls.Add(map[i][k]);
                     map[i][k].Size = new Size(Configuration.DEFAULT_LAND_SIZE, Configuration.DEFAULT_LAND_SIZE);
