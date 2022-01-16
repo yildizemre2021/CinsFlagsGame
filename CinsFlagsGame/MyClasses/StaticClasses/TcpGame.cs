@@ -42,7 +42,8 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
         {
             Socket oldserver = (Socket)iar.AsyncState;
             client = oldserver.EndAccept(iar);
-
+            Game.ChatWindow.Items.Add("CONNECTION IS READY");
+            Game.playStartSound();
             Thread receiver = new Thread(new ThreadStart(ReceiveData));
             receiver.Start();
         }

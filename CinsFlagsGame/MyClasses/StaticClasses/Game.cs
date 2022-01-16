@@ -210,6 +210,11 @@ namespace CinsFlagsGame.MyClasses.StaticClasses
             SoundPlayer failedSound = new SoundPlayer(Properties.Resources.failed);
             failedSound.Play();
         }
+        public static void playStartSound()
+        {
+            SoundPlayer startSound = new SoundPlayer(Properties.Resources.start);
+            startSound.Play();
+        }
 
     }
 }
